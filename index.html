@@ -221,7 +221,7 @@ table.f td:last-child{border-radius:0 12px 12px 0}
 .gcard.dragging,.wagon.dragging{opacity:.25}
 .gcard.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
 .gcard.bad{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
-.ghost{position:fixed!important;z-index:300;pointer-events:none;transform:rotate(4deg) scale(1.07);box-shadow:0 10px 24px rgba(0,0,0,.35);margin:0}
+.dragghost{position:fixed!important;z-index:300;pointer-events:none;transform:rotate(4deg) scale(1.07);box-shadow:0 10px 24px rgba(0,0,0,.35);margin:0}
 .gbins{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
 @media(max-width:640px){.gbins{grid-template-columns:1fr 1fr}}
 .gbin{border:3px solid var(--end);background:var(--end-bg);border-radius:16px;padding:8px;min-height:130px;transition:transform .15s}
@@ -893,7 +893,7 @@ function g1(){
       if(e.button>0)return;
       var sx=e.clientX,sy=e.clientY,moved=false,gh=null,r=c.getBoundingClientRect(),ox=e.clientX-r.left,oy=e.clientY-r.top;
       function mv(ev){
-        if(!moved&&Math.abs(ev.clientX-sx)+Math.abs(ev.clientY-sy)>6){moved=true;gh=c.cloneNode(true);gh.classList.add("ghost");gh.style.width=r.width+"px";document.body.appendChild(gh);c.classList.add("dragging");}
+        if(!moved&&Math.abs(ev.clientX-sx)+Math.abs(ev.clientY-sy)>6){moved=true;gh=c.cloneNode(true);gh.classList.add("dragghost");gh.style.width=r.width+"px";document.body.appendChild(gh);c.classList.add("dragging");}
         if(moved){gh.style.left=(ev.clientX-ox)+"px";gh.style.top=(ev.clientY-oy)+"px";hov(ev.clientX,ev.clientY);ev.preventDefault();}
       }
       function up(ev){
@@ -1297,7 +1297,7 @@ function g5(){
         w.addEventListener("pointerdown",function(e){
           if(d.ok||e.button>0)return;
           var r=w.getBoundingClientRect(),ox=e.clientX-r.left,oy=e.clientY-r.top,gh=w.cloneNode(true);
-          gh.classList.add("ghost");gh.style.width=r.width+"px";gh.style.left=r.left+"px";gh.style.top=r.top+"px";document.body.appendChild(gh);w.classList.add("dragging");
+          gh.classList.add("dragghost");gh.style.width=r.width+"px";gh.style.left=r.left+"px";gh.style.top=r.top+"px";document.body.appendChild(gh);w.classList.add("dragging");
           function mv(ev){
             gh.style.left=(ev.clientX-ox)+"px";gh.style.top=(ev.clientY-oy)+"px";
             var sib=Array.prototype.filter.call(row.children,function(c){return c!==w;}),ref=null;
